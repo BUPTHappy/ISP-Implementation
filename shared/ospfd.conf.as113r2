@@ -1,0 +1,33 @@
+!
+! Zebra configuration saved from vty
+!   2024/10/01 09:02:44
+!
+!
+!
+!
+interface dummy0
+!
+interface eth0
+!
+interface eth1
+ ip ospf cost 2
+!
+interface eth2
+ ip ospf cost 2
+!
+interface lo
+!
+router ospf
+ redistribute bgp route-map AS21BGP
+ network 1.113.0.1/32 area 0.0.0.0
+ network 1.113.3.0/30 area 0.0.0.0
+ network 1.113.7.0/30 area 0.0.0.0
+ default-information originate always metric 100
+!
+ip prefix-list AS21 seq 5 permit 2.21.0.0/20 le 31
+!
+route-map AS21BGP permit 3
+ match ip address prefix-list AS21
+!
+line vty
+!
